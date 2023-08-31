@@ -22,8 +22,7 @@ uploaded_file = st.file_uploader("Choose a CSV file", type="csv")
 if uploaded_file is not None:
     data = pd.read_csv(uploaded_file)
     st.markdown('''Check your data before proceeding''')
-    df = data.drop(['is_fishing', 'month', 'day_of_week'])
-    st.write(df)
+    st.write(data)
 
     if st.button("Check this boat"):
         # Extract lattitude and longitude from Dataframe
