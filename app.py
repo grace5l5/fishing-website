@@ -7,10 +7,8 @@ import joblib
 from streamlit_folium import st_folium, folium_static
 from PIL import Image
 
-pipeline =joblib.load("model/rff_model.joblib")
-
 # Title
-st.title('Illegal Fishing')
+st.title('Fishing Worldwide')
 
 # Static Map of fishing events around the world
 st.markdown('''
