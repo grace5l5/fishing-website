@@ -18,6 +18,8 @@ st.image(image, caption='Fishing events around the World')
 
 # hardcode fishing or not
 y_preds = [0,0,0,1,0,1,1,0,0,1]
+month = [1,1,1,1,1,1,1,1,11,11]
+week = [1,2,3,4,5,6,1,2,3,4]
 
 # Upload csv information
 st.set_option('deprecation.showfileUploaderEncoding', False)
@@ -31,6 +33,8 @@ if uploaded_file is not None:
         # Extract lattitude and longitude from Dataframe
 		# Adding y_preds to the df
         data['is_fishing'] = y_preds
+        data['month'] = month
+        data['day_of_week'] = week
         place_lat=data["lat"].tolist()
         place_lng=data["lon"].tolist()
         num = round(len(place_lat)/2)
@@ -48,11 +52,11 @@ if uploaded_file is not None:
 
         # Create markers for each fishing event
         for fish in fishing:
-            icon=folium.Icon(color='white', icon_color="red")
+            icon=folium.Icon(color='white', icon_color="green")
             folium.Marker(fish, icon=icon).add_to(base_map)
 
         for notfish in not_fishing:
-            icon=folium.Icon(color='white', icon_color="green")
+            icon=folium.Icon(color='white', icon_color="red")
             folium.Marker(notfish, icon=icon).add_to(base_map)
 
         # Create line that connect points
