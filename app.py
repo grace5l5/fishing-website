@@ -1,11 +1,8 @@
 import streamlit as st
 import pandas as pd
-import requests
 import folium
-import joblib
 
-from streamlit_folium import st_folium, folium_static
-from annotated_text import annotated_text
+from streamlit_folium import folium_static
 from PIL import Image
 
 # Title
@@ -21,8 +18,6 @@ st.subheader('Our goal is to map the trajectory of the boat and identify fishing
 
 # hardcode fishing or not
 y_preds = [0,0,0,1,0,1,1,0,0,1]
-month = [1,1,1,1,1,1,1,1,11,11]
-week = [1,2,3,4,5,6,1,2,3,4]
 
 # Upload csv information
 st.set_option('deprecation.showfileUploaderEncoding', False)
@@ -42,8 +37,6 @@ if uploaded_file is not None:
         # Extract lattitude and longitude from Dataframe
 		# Adding y_preds to the df
         data['is_fishing'] = y_preds
-        data['month'] = month
-        data['day_of_week'] = week
         place_lat=data["lat"].tolist()
         place_lng=data["lon"].tolist()
         num = round(len(place_lat)/2)
