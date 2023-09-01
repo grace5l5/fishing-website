@@ -5,6 +5,7 @@ import folium
 import joblib
 
 from streamlit_folium import st_folium, folium_static
+from annotated_text import annotated_text
 from PIL import Image
 
 # Title
@@ -16,12 +17,12 @@ Below is a map of sample fishing events around the world 🗺''')
 image = Image.open('output.png')
 st.image(image, caption='Fishing events around the World')
 
+st.subheader('Our goal is to map the trajectory of the boat and identify fishing events')
+
 # hardcode fishing or not
 y_preds = [0,0,0,1,0,1,1,0,0,1]
 month = [1,1,1,1,1,1,1,1,11,11]
 week = [1,2,3,4,5,6,1,2,3,4]
-
-
 
 # Upload csv information
 st.set_option('deprecation.showfileUploaderEncoding', False)
@@ -32,6 +33,12 @@ if uploaded_file is not None:
     st.write(data)
 
     if st.button("Check this boat"):
+        green = '<p style="font-family:sans-serif; color:Green; font-size: 42px;">Green is not fishing</p>'
+        st.markdown(green, unsafe_allow_html=True)
+
+        red = '<p style="font-family:sans-serif; color:Red; font-size: 42px;">Red is fishing</p>'
+        st.markdown(red, unsafe_allow_html=True)
+
         # Extract lattitude and longitude from Dataframe
 		# Adding y_preds to the df
         data['is_fishing'] = y_preds
