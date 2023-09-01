@@ -27,7 +27,7 @@ if uploaded_file is not None:
     st.markdown('''Check your data before proceeding''')
     st.write(data)
 
-    if st.button("Check this boat"):
+    if st.button(":fishing_pole_and_fish:  Check this boat  :fishing_pole_and_fish:"):
         green = '<p style="font-family:sans-serif; color:Green; font-size: 42px;">Green is not fishing</p>'
         st.markdown(green, unsafe_allow_html=True)
 
