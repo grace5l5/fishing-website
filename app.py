@@ -16,6 +16,9 @@ Below is a map of sample fishing events around the world 🗺''')
 image = Image.open('output.png')
 st.image(image, caption='Fishing events around the World')
 
+# hardcode fishing or not
+y_preds = [0,0,0,1,0,1,1,0,0,1]
+
 # Upload csv information
 st.set_option('deprecation.showfileUploaderEncoding', False)
 uploaded_file = st.file_uploader("Choose a CSV file", type="csv")
@@ -26,6 +29,8 @@ if uploaded_file is not None:
 
     if st.button("Check this boat"):
         # Extract lattitude and longitude from Dataframe
+		# Adding y_preds to the df
+        data['is_fishing'] = y_preds
         place_lat=data["lat"].tolist()
         place_lng=data["lon"].tolist()
         num = round(len(place_lat)/2)
