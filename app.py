@@ -1,9 +1,13 @@
 import streamlit as st
 import pandas as pd
 import folium
+import joblib
 
 from streamlit_folium import folium_static
 from PIL import Image
+
+
+#pipeline =joblib.load("rff_model.joblib")
 
 # Title
 st.title('Fishing Worldwide')
@@ -18,6 +22,8 @@ st.subheader('Our goal is to map the trajectory of the boat and identify fishing
 
 # hardcode fishing or not
 y_preds = [0,0,0,1,0,1,1,0,0,1]
+#month = [1,1,1,1,1,1,1,1,11,11]
+#week = [1,2,3,4,5,6,1,2,3,4]
 
 # Upload csv information
 st.set_option('deprecation.showfileUploaderEncoding', False)
@@ -26,6 +32,8 @@ if uploaded_file is not None:
     data = pd.read_csv(uploaded_file)
     st.markdown('''Check your data before proceeding''')
     st.write(data)
+#    data['month'] = month
+#    data['day_of_week'] = week
 
     if st.button(":fishing_pole_and_fish:  Check this boat  :fishing_pole_and_fish:"):
         green = '<p style="font-family:sans-serif; color:Green; font-size: 42px;">Green is not fishing</p>'
@@ -35,7 +43,7 @@ if uploaded_file is not None:
         st.markdown(red, unsafe_allow_html=True)
 
         # Extract lattitude and longitude from Dataframe
-		# Adding y_preds to the df
+        #data['is_fishing'] = pipeline.predict(data)
         data['is_fishing'] = y_preds
         place_lat=data["lat"].tolist()
         place_lng=data["lon"].tolist()
@@ -71,7 +79,6 @@ if uploaded_file is not None:
         sw = data[['lat', 'lon']].min().values.tolist()
         ne = data[['lat', 'lon']].max().values.tolist()
         base_map.fit_bounds([sw, ne])
-
 
         # Displays map
         folium_static(base_map)
