@@ -75,6 +75,4 @@ if uploaded_file is not None:
 
         # Displays map
         folium_static(base_map)
-
-        df_clean = data.drop(['month','day_of_week'], axis=1)
-        st.write(df_clean)
+        st.write(data)
